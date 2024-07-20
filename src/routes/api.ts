@@ -14,10 +14,10 @@ export default (kobble: Kobble) => {
       if (!authorization) {
         return res.status(400).json({ error: 'Authorization header is missing' });
       }
-      
+
       const accessToken = authorization.split(' ')[1];
       const user = await kobble.auth.verifyAccessToken(accessToken);
-      const userData = await kobble.users.get(user.userId, { includeMetadata: true });
+      const userData = await kobble.users.getById(user.userId, { includeMetadata: true });
 
       if (!userData.metadata || !userData.metadata.apiKey) {
         return res.status(400).json({
@@ -46,12 +46,12 @@ export default (kobble: Kobble) => {
       if (!authorization) {
         return res.status(400).json({ error: 'Authorization header is missing' });
       }
-      
+
       const accessToken = authorization.split(' ')[1];
       const user = await kobble.auth.verifyAccessToken(accessToken);
       const { apiKey } = req.body;
 
-      await kobble.users.update(user.userId, { metadata: { apiKey } });
+      await kobble.users.updateMetadata(user.userId, { apiKey });
 
       res.status(200).json({ message: 'API key updated successfully' });
     } catch (error) {

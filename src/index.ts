@@ -1,5 +1,5 @@
 import express from 'express';
-import { Kobble } from '@kobbleio/admin'; // Correct import statement
+import { Kobble } from '@kobbleio/admin';
 import apiRouter from './routes/api';
 
 const app = express();
